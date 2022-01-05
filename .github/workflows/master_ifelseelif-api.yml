@@ -1,13 +1,14 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - ifelseelif-api
 
 on:
   push:
     branches:
       - master
-  workflow_dispatch:
+      
+env:
+  AZURE_WEBAPP_NAME: ifelseelif-api
+  AZURE_WEBAPP_PACKAGE_PATH: './published'
+  NETCORE_VERSION : '5.0.x'
 
 jobs:
   build:
@@ -16,42 +17,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Set up .NET Core SDK ${{ env.NETCORE_VERSION }}
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
-          include-prerelease: true
+          dotnet-version: ${{ env.NETCORE_VERSION }}
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Restore
+        run: dotnet restore
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Build
+        run: dotnet build --no-restore -c Release
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      - name: Publish
+        run: dotnet publish --no-build -c Release -o ./published
+        
+      - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ifelseelif-api'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6F6493A27A7A42FDAA7C44287729A40F }}
-          package: .
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
