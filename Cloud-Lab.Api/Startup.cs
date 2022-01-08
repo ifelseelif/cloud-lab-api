@@ -7,13 +7,11 @@ using Cloud_Lab.Entities.Options;
 using Cloud_Lab.Entities.Requests;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -46,7 +44,9 @@ namespace Api
             services.AddSingleton<UserRepository>();
 
             services.Configure<TokenOptions>(Configuration.GetSection(TokenOptions.SectionName));
-
+            
+            services.AddApplicationInsightsTelemetry();
+            
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = "JwtBearer";
@@ -64,31 +64,34 @@ namespace Api
                         ValidateLifetime = false
                     };
                 });
-
+            
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "Cloud lab", 
-                    Version = "v1" 
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Cloud lab",
+                    Version = "v1"
                 });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
-                    In = ParameterLocation.Header, 
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
                     Description = "Please insert JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey 
+                    Type = SecuritySchemeType.ApiKey
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                    { 
-                        new OpenApiSecurityScheme 
-                        { 
-                            Reference = new OpenApiReference 
-                            { 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer" 
-                            } 
+                                Id = "Bearer"
+                            }
                         },
-                        new string[] { } 
-                    } 
+                        new string[] { }
+                    }
                 });
             });
         }
