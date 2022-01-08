@@ -24,6 +24,13 @@ jobs:
 
       - name: Restore
         run: dotnet restore
+      
+      - name: Set secret db connection
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: appsettings.json
+          field: DefaultConnection
+          value: ${{ AZURE_DB_CONNECTION }}
 
       - name: Build
         run: dotnet build --no-restore -c Release
