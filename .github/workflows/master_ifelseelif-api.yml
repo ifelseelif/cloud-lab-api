@@ -29,7 +29,7 @@ jobs:
         uses: jossef/action-set-json-field@v1
         with:
           file: Cloud-Lab.Api/appsettings.json
-          field: DefaultConnection
+          field: ConnectionStrings.DefaultConnection
           value: ${{ secrets.AZURE_DB_CONNECTION }}
 
       - name: Build
