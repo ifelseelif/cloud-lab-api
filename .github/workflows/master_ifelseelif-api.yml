@@ -30,7 +30,7 @@ jobs:
         with:
           file: appsettings.json
           field: DefaultConnection
-          value: ${{ AZURE_DB_CONNECTION }}
+          value: ${{ secrets.AZURE_DB_CONNECTION }}
 
       - name: Build
         run: dotnet build --no-restore -c Release
