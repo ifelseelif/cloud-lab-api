@@ -24,6 +24,13 @@ jobs:
 
       - name: Restore
         run: dotnet restore
+      
+      - name: Set secret db connection
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: appsettings.json
+          field: DefaultConnection
+          value: ${{ AZURE_DB_CONNECTION }}
 
       - name: Build
         run: dotnet build --no-restore -c Release
@@ -37,3 +44,9 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with: 
+          name: webapp
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
