@@ -1,9 +1,9 @@
-﻿using Api.Entities;
+﻿using Cloud_Lab.Entities.Requests;
 using FluentValidation;
 
-namespace Api.Validators
+namespace Cloud_Lab.DataAccess.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserCredential>
     {
         public UserValidator()
         {

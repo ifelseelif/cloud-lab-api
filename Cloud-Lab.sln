@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{5B767620-2BDC-4E3F-B776-869AC24F6225}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud-Lab.Api", "Cloud-Lab.Api\Cloud-Lab.Api.csproj", "{5B767620-2BDC-4E3F-B776-869AC24F6225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud-Lab.Entities", "Cloud-Lab.Entities\Cloud-Lab.Entities.csproj", "{45A7ADFE-F593-4BE9-9FFD-E7C597557B0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud-Lab.DataAccess", "Cloud-Lab.DataAccess\Cloud-Lab.DataAccess.csproj", "{E218FC7E-50AD-4A3D-8385-6457EFB735B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{5B767620-2BDC-4E3F-B776-869AC24F6225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B767620-2BDC-4E3F-B776-869AC24F6225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B767620-2BDC-4E3F-B776-869AC24F6225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A7ADFE-F593-4BE9-9FFD-E7C597557B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A7ADFE-F593-4BE9-9FFD-E7C597557B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A7ADFE-F593-4BE9-9FFD-E7C597557B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A7ADFE-F593-4BE9-9FFD-E7C597557B0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E218FC7E-50AD-4A3D-8385-6457EFB735B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E218FC7E-50AD-4A3D-8385-6457EFB735B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E218FC7E-50AD-4A3D-8385-6457EFB735B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E218FC7E-50AD-4A3D-8385-6457EFB735B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

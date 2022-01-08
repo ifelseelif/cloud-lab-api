@@ -1,7 +1,7 @@
-﻿using Api.Entities;
+﻿using Api.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Database
+namespace Cloud_Lab.DataAccess.Database
 {
     public sealed class ApplicationContext : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Api.Entities
+namespace Api.Database.Models
 {
     public class User
     {
