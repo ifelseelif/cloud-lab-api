@@ -16,7 +16,7 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             _contextFactory = contextFactory;
         }
 
-        public async Task<OperationResult> AddStock(Guid portfolioId, Guid stockId, int count)
+        public async Task<OperationResult> AddStock(Guid portfolioId, Guid stockId, int count, int percent)
         {
             try
             {
@@ -26,7 +26,8 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                     Id = Guid.NewGuid(),
                     StockId = stockId,
                     PortfolioId = portfolioId,
-                    Count = count
+                    Count = count,
+                    Percent = percent
                 });
                 await context.SaveChangesAsync();
                 return new OperationResult();

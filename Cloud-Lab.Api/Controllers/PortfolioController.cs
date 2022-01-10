@@ -35,9 +35,11 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("stock")]
-        public async Task<IActionResult> AddStockToPortfolio([FromQuery] Guid portfolioId, [FromQuery] Guid stockId, [FromQuery] int count)
+        public async Task<IActionResult> AddStockToPortfolio([FromQuery] Guid portfolioId, [FromQuery] Guid stockId,
+            [FromQuery] int count, [FromQuery] int percent)
         {
-            return (await _portfolioStocksRepository.AddStock(portfolioId, stockId, count)).ToResponseMessage();
+            return (await _portfolioStocksRepository.AddStock(portfolioId, stockId, count, percent))
+                .ToResponseMessage();
         }
 
         [HttpGet]
