@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Api.Database.Models;
 using Cloud_Lab.Entities;
+using Cloud_Lab.Entities.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cloud_Lab.DataAccess.Database.Repositories

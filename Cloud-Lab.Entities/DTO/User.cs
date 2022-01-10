@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Api.Database.Models
+namespace Cloud_Lab.Entities.DTO
 {
     public class User
     {

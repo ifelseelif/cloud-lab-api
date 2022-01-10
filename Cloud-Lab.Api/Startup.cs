@@ -39,14 +39,17 @@ namespace Api
 
             services.AddAutoMapper(typeof(UserProfile));
 
+            services.AddCors();
+
             services.AddTransient<IValidator<UserCredential>, UserValidator>();
 
             services.AddSingleton<UserRepository>();
+            services.AddSingleton<StockRepository>();
 
             services.Configure<TokenOptions>(Configuration.GetSection(TokenOptions.SectionName));
-            
+
             services.AddApplicationInsightsTelemetry();
-            
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = "JwtBearer";
@@ -64,7 +67,7 @@ namespace Api
                         ValidateLifetime = false
                     };
                 });
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -99,6 +102,11 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
             app.UseSwagger();
             app.UseSwaggerUI();
 

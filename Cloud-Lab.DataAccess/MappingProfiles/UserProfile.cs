@@ -1,5 +1,5 @@
-﻿using Api.Database.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using Cloud_Lab.Entities.DTO;
 using Cloud_Lab.Entities.Requests;
 
 namespace Cloud_Lab.DataAccess.MappingProfiles

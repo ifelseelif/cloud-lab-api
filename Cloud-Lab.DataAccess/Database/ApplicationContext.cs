@@ -1,4 +1,4 @@
-﻿using Api.Database.Models;
+﻿using Cloud_Lab.Entities.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cloud_Lab.DataAccess.Database
@@ -6,6 +6,7 @@ namespace Cloud_Lab.DataAccess.Database
     public sealed class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
