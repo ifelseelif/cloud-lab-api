@@ -19,7 +19,6 @@ namespace Api.Controllers
         {
             _userRepository = userRepository;
             _mapper = mapper;
-
         }
 
         [HttpGet]

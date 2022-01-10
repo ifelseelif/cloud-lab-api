@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Cloud_Lab.DataAccess.Database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +26,13 @@ namespace Api.Controllers
         public async Task<IActionResult> GetStocks()
         {
             return (await _stockRepository.GetAllStocks()).ToResponseMessage();
+        }
+        
+        [HttpGet]
+        [Route("byPortfolio")]
+        public async Task<IActionResult> GetStocksByPortfolio([FromQuery] Guid portfolioId)
+        {
+            return (await _stockRepository.GetAllStocks(portfolioId)).ToResponseMessage();
         }
     }
 }

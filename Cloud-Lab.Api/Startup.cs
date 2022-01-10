@@ -45,6 +45,8 @@ namespace Api
 
             services.AddSingleton<UserRepository>();
             services.AddSingleton<StockRepository>();
+            services.AddSingleton<PortfolioRepository>();
+            services.AddSingleton<PortfolioStocksRepository>();
 
             services.Configure<TokenOptions>(Configuration.GetSection(TokenOptions.SectionName));
 

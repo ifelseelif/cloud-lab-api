@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Cloud_Lab.Entities;
@@ -27,6 +28,30 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                     ? new OperationResult<List<Stock>>(HttpStatusCode.NotFound, "Not found any stocks")
                     : new OperationResult<List<Stock>>(stocks);
 
+            }
+            catch (Exception)
+            {
+                return new OperationResult<List<Stock>>(HttpStatusCode.InternalServerError, "try again later");
+            }
+        }
+
+        public async Task<OperationResult<List<Stock>>> GetAllStocks(Guid portfolioId)
+        {
+            try
+            {
+                var context = await _contextFactory.CreateDbContextAsync();
+                var portfolioStocks = context.PortfolioStocks.Where(e => e.PortfolioId == portfolioId);
+                if (!portfolioStocks.Any())
+                    return new OperationResult<List<Stock>>(HttpStatusCode.NotFound,
+                        "Portfolio with this id not found");
+
+                var stocks = await context.Stocks
+                    .Join(portfolioStocks, stock => stock.Id,
+                        portfolio => portfolio.PortfolioId,
+                        (stock, _) => stock).ToListAsync();
+                return stocks.Count == 0
+                    ? new OperationResult<List<Stock>>(HttpStatusCode.NotFound, "Not found any stocks")
+                    : new OperationResult<List<Stock>>(stocks);
             }
             catch (Exception)
             {
