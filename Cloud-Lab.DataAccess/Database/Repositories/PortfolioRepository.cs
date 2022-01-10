@@ -31,6 +31,7 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                 };
 
                 context.Portfolios.Add(portfolio);
+                await context.SaveChangesAsync();
                 return new OperationResult<Guid>(portfolio.Id);
             }
             catch (Exception)
