@@ -40,7 +40,8 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             try
             {
                 var context = await _contextFactory.CreateDbContextAsync();
-                var portfolioStocks = context.PortfolioStocks.Where(e => e.PortfolioId == portfolioId);
+                var portfolioStocks =
+                    await context.PortfolioStocks.Where(e => e.PortfolioId == portfolioId).ToListAsync();
                 if (!portfolioStocks.Any())
                     return new OperationResult<List<Stock>>(HttpStatusCode.NotFound,
                         "Portfolio with this id not found");
