@@ -27,12 +27,12 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                 if (elem != null)
                 {
                     elem.Count += count;
-                    context.Update(elem);
+                    context.PortfolioStocks.Update(elem);
                     await context.SaveChangesAsync();
                     return new OperationResult();
                 }
 
-                context.Add(new PortfolioStocks
+                context.PortfolioStocks.Add(new PortfolioStocks
                 {
                     Id = Guid.NewGuid(),
                     StockId = stockId,
