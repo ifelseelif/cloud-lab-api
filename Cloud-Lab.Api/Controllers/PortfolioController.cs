@@ -61,6 +61,7 @@ namespace Api.Controllers
 
             var neededToBalanced = portfolioStocks.Value
                 .Where(e => e.Count * e.Price < normal)
+                .Distinct()
                 .ToList();
 
             neededToBalanced.ForEach(e =>
