@@ -40,15 +40,11 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             try
             {
                 var context = await _contextFactory.CreateDbContextAsync();
-                var portfolioStocks =
-                    await context.PortfolioStocks.Where(e => e.PortfolioId == portfolioId).ToListAsync();
-                if (!portfolioStocks.Any())
-                    return new OperationResult<List<Stock>>(HttpStatusCode.NotFound,
-                        "Portfolio with this id not found");
+                var portfolioStocks = context.PortfolioStocks.Where(e => e.PortfolioId == portfolioId);
 
                 var stocks = await context.Stocks
                     .Join(portfolioStocks, stock => stock.Id,
-                        portfolio => portfolio.PortfolioId,
+                        portfolio => portfolio.StockId,
                         (stock, _) => stock).Where(e => e.Currency == "rub").ToListAsync();
                 return stocks.Count == 0
                     ? new OperationResult<List<Stock>>(HttpStatusCode.NotFound, "Not found any stocks")
