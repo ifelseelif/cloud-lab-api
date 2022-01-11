@@ -7,7 +7,6 @@ namespace Cloud_Lab.Entities.DTO
         public Guid Id { get; set; }
         public Guid PortfolioId { get; set; }
         public Guid StockId { get; set; }
-        public int Percent { get; set; }
         public int Count { get; set; }
 
         public Portfolio Portfolio { get; set; }

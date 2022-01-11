@@ -52,7 +52,6 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                             Figi = stock.Figi,
                             CountryOfRiskName = stock.CountryOfRiskName,
                             Count = portfolio.Count,
-                            Percent = portfolio.Percent,
                             Currency = stock.Currency,
                             Name = stock.Name,
                             Price = stock.Price,
@@ -65,7 +64,8 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             }
             catch (Exception)
             {
-                return new OperationResult<List<PortfolioStocks>>(HttpStatusCode.InternalServerError, "try again later");
+                return new OperationResult<List<PortfolioStocks>>(HttpStatusCode.InternalServerError,
+                    "try again later");
             }
         }
     }
