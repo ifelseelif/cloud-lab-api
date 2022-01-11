@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Cloud_Lab.Entities;
@@ -21,6 +22,16 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             try
             {
                 var context = await _contextFactory.CreateDbContextAsync();
+                var elem = context.PortfolioStocks.FirstOrDefault(e =>
+                    e.PortfolioId == portfolioId && e.StockId == stockId);
+                if (elem != null)
+                {
+                    elem.Count += count;
+                    context.Update(elem);
+                    await context.SaveChangesAsync();
+                    return new OperationResult();
+                }
+
                 context.Add(new PortfolioStocks
                 {
                     Id = Guid.NewGuid(),
