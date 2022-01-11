@@ -54,7 +54,7 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                             Count = portfolio.Count,
                             Percent = portfolio.Percent,
                             Currency = stock.Currency,
-                            Name = stock.Currency,
+                            Name = stock.Name,
                             Price = stock.Price,
                             Sector = stock.Sector,
                             Ticker = stock.Ticker
