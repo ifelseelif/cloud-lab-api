@@ -5,7 +5,9 @@ using System.Net;
 using System.Threading.Tasks;
 using Cloud_Lab.Entities;
 using Cloud_Lab.Entities.DTO;
+using Cloud_Lab.Entities.Responses;
 using Microsoft.EntityFrameworkCore;
+using PortfolioStocks = Cloud_Lab.Entities.Responses.PortfolioStocks;
 
 namespace Cloud_Lab.DataAccess.Database.Repositories
 {
@@ -35,7 +37,7 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
             }
         }
 
-        public async Task<OperationResult<List<Stock>>> GetAllStocks(Guid portfolioId)
+        public async Task<OperationResult<List<PortfolioStocks>>> GetAllStocks(Guid portfolioId)
         {
             try
             {
@@ -45,14 +47,25 @@ namespace Cloud_Lab.DataAccess.Database.Repositories
                 var stocks = await context.Stocks
                     .Join(portfolioStocks, stock => stock.Id,
                         portfolio => portfolio.StockId,
-                        (stock, _) => stock).Where(e => e.Currency == "rub").ToListAsync();
+                        (stock, portfolio) => new PortfolioStocks
+                        {
+                            Figi = stock.Figi,
+                            CountryOfRiskName = stock.CountryOfRiskName,
+                            Count = portfolio.Count,
+                            Percent = portfolio.Percent,
+                            Currency = stock.Currency,
+                            Name = stock.Currency,
+                            Price = stock.Price,
+                            Sector = stock.Sector,
+                            Ticker = stock.Ticker
+                        }).Where(e => e.Currency == "rub").ToListAsync();
                 return stocks.Count == 0
-                    ? new OperationResult<List<Stock>>(HttpStatusCode.NotFound, "Not found any stocks")
-                    : new OperationResult<List<Stock>>(stocks);
+                    ? new OperationResult<List<PortfolioStocks>>(HttpStatusCode.NotFound, "Not found any stocks")
+                    : new OperationResult<List<PortfolioStocks>>(stocks);
             }
             catch (Exception)
             {
-                return new OperationResult<List<Stock>>(HttpStatusCode.InternalServerError, "try again later");
+                return new OperationResult<List<PortfolioStocks>>(HttpStatusCode.InternalServerError, "try again later");
             }
         }
     }
